@@ -1,11 +1,13 @@
 {
-  "name": "LightsSpread",
+  "name": "LightSpread",
   "version": "1.0.0-alpha.1",
   "description": "",
   "main": "main.js",
   "scripts": {
     "start": "env ELECTRON_IS_DEV=1 electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --progress --watch --config webpack.config.js",
+    "webpack": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,17 @@
   },
   "homepage": "https://github.com/Art4/lightspread#readme",
   "devDependencies": {
-    "electron": "^3.0.6"
+    "autoprefixer": "^9.3.1",
+    "css-loader": "^1.0.1",
+    "electron": "^3.0.6",
+    "file-loader": "^2.0.0",
+    "jquery": "^3.3.1",
+    "mini-css-extract-plugin": "^0.4.4",
+    "postcss-loader": "^3.0.0",
+    "precss": "^3.1.2",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2"
   }
 }
