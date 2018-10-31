@@ -1,9 +1,10 @@
 {
-  "name": "lightspread",
+  "name": "LightsSpread",
   "version": "1.0.0-alpha.1",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
+    "start": "env ELECTRON_IS_DEV=1 electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Art4/lightspread/issues"
   },
-  "homepage": "https://github.com/Art4/lightspread#readme"
+  "homepage": "https://github.com/Art4/lightspread#readme",
+  "devDependencies": {
+    "electron": "^3.0.6"
+  }
 }
