@@ -63,4 +63,7 @@ module.exports = {
             chunkFilename: "[id].css"
         })
     ],
+    watchOptions: {
+        poll: 500 // Check for changes every second
+    }
 };

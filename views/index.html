@@ -2,14 +2,30 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>LightSpread</title>
     <link rel="stylesheet" href="dist/main.css">
 </head>
 <body>
-    <h1>LightSpread</h1>
-    <p>LightSpread is using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.</p>
+    <div class="container-fluid">
+        <h1>LightSpread</h1>
+        <div class="row">
+            <div class="col-sm">
+                <p>LightSpread is using node <script>document.write(process.versions.node)</script>,
+                    Chrome <script>document.write(process.versions.chrome)</script>,
+                    and Electron <script>document.write(process.versions.electron)</script>.</p>
+            </div>
+            <div class="col-sm">
+                <div>
+                    <button class="folder-selector">Ordner wählen</button>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="path-selected"></div>
+            </div>
+        </div>
+    </div>
+    <script src="./index.js"></script>
     <script src="./dist/main.js"></script>
 </body>
 </html>

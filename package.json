@@ -6,7 +6,7 @@
   "scripts": {
     "start": "env ELECTRON_IS_DEV=1 electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --progress -d --watch --config webpack.config.js",
+    "watch": "webpack -d --watch --config webpack.config.js",
     "webpack": "webpack -d --config webpack.config.js"
   },
   "repository": {
