@@ -19,7 +19,7 @@ module.exports = {
                         options: {
                             // you can specify a publicPath here
                             // by default it use publicPath in webpackOptions.output
-                            publicPath: '../'
+                            // publicPath: '../'
                         }
                     },
                     {
@@ -42,16 +42,16 @@ module.exports = {
                 ]
             }, {
                 test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+                loader: 'file-loader?limit=10000&mimetype=application/font-woff'
             }, {
                 test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
+                loader: 'file-loader?limit=10000&mimetype=application/octet-stream'
             }, {
                 test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'file-loader'
             }, {
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+                loader: 'file-loader?limit=10000&mimetype=image/svg+xml'
             },
         ]
     },

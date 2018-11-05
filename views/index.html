@@ -9,23 +9,29 @@
 <body>
     <div class="container-fluid">
         <h1>LightSpread</h1>
+        <p>LightSpread is using node <script>document.write(process.versions.node)</script>, Chrome <script>document.write(process.versions.chrome)</script>, and Electron <script>document.write(process.versions.electron)</script>.</p>
         <div class="row">
-            <div class="col-sm">
-                <p>LightSpread is using node <script>document.write(process.versions.node)</script>,
-                    Chrome <script>document.write(process.versions.chrome)</script>,
-                    and Electron <script>document.write(process.versions.electron)</script>.</p>
+            <div class="col-sm-6">
+                <h2><span class="far fa-check-circle"></span> 1. Ordner wählen</h2>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-6">
                 <div>
-                    <button class="folder-selector">Ordner wählen</button>
+                    <button id="folder-selector">Ordner wählen</button>
+                    <div id="path-selected"><i>Kein Ordner gewählt</i></div>
                 </div>
             </div>
-            <div class="col-sm">
-                <div class="path-selected"></div>
+            <div class="col-sm-6">
+                <h2><span class="far fa-circle"></span> 2. Server starten</h2>
+            </div>
+            <div class="col-sm-6">
+                <div>
+                    <button class="server-start">Button</button>
+                    <div class="server-stop"></div>
+                </div>
             </div>
         </div>
     </div>
-    <script src="./index.js"></script>
-    <script src="./dist/main.js"></script>
+    <script src="index.js"></script>
+    <script src="dist/main.js"></script>
 </body>
 </html>
