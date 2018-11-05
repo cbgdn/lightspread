@@ -27,6 +27,7 @@
     "electron": "^3.0.7",
     "file-loader": "^2.0.0",
     "jquery": "^3.3.1",
+    "lightgallery": "^1.6.11",
     "mini-css-extract-plugin": "^0.4.4",
     "node-sass": "^4.9.4",
     "postcss-loader": "^3.0.0",
@@ -35,5 +36,8 @@
     "style-loader": "^0.23.1",
     "webpack": "^4.25.0",
     "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
   }
 }
