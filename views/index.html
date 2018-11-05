@@ -12,7 +12,7 @@
         <p>LightSpread is using node <script>document.write(process.versions.node)</script>, Chrome <script>document.write(process.versions.chrome)</script>, and Electron <script>document.write(process.versions.electron)</script>.</p>
         <div class="row">
             <div class="col-sm-6">
-                <h2><span class="far fa-check-circle"></span> 1. Ordner wählen</h2>
+                <h2><span class="path-selected-indicator far fa-circle"></span> 1. Ordner wählen</h2>
             </div>
             <div class="col-sm-6">
                 <div>
@@ -21,11 +21,11 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <h2><span class="far fa-circle"></span> 2. Server starten</h2>
+                <h2 class="text-muted"><span class="server-run-indicator far fa-circle"></span> 2. Server starten</h2>
             </div>
             <div class="col-sm-6">
                 <div>
-                    <button class="server-start">Button</button>
+                    <button id="server-switch" disabled>Start</button>
                     <div class="server-stop"></div>
                 </div>
             </div>
