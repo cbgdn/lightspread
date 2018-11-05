@@ -1,6 +1,6 @@
 /*
  * LightSpread
- * Copyright (C) 2011-2018  Artur Weigandt  https://wlabs.de/kontakt
+ * Copyright (C) 2018  Artur Weigandt  https://wlabs.de/kontakt
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
