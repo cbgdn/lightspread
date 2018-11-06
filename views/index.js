@@ -60,12 +60,18 @@ var startServer = () => {
         res.sendFile(path.resolve(__dirname, './gallery.html'));
     });
 
-    app.get(['/dist/gallery.css'], function (req, res) {
-        res.sendFile(path.resolve(__dirname, './dist/gallery.css'));
-    });
+    app.get(['/dist/:name'], function (req, res) {
+        var name = req.params.name;
 
-    app.get(['/dist/gallery.js'], function (req, res) {
-        res.sendFile(path.resolve(__dirname, './dist/gallery.js'));
+        fs.access(path.resolve(__dirname, './dist/' + name), fs.constants.F_OK, (err) => {
+            if (err) {
+                console.log(path.resolve(__dirname, './dist/' + name) + ' nicht gefunden');
+                res.sendStatus(404);
+                return;
+            }
+
+            res.sendFile(path.resolve(__dirname, './dist/'+name));
+        });
     });
 
     // JSON Response with image list
@@ -143,6 +149,10 @@ var handleSelectedFolder = (filePaths) => {
         } catch (err) {
             console.log('tmp folder konnte nicht gelöscht werden: ' + err);
         }
+
+        // Reset selected files
+        selectedFiles = new Array();
+        selectedFilesIndex = new Array();
 
         files.forEach((value, index) => {
             // Ignore files/folders with wrong extensions
