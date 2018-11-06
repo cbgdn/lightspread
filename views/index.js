@@ -1,8 +1,16 @@
 const { dialog } = require('electron').remote;
+const fs = require('fs');
 const path = require('path');
 const express = require('express');
 
 var selectedPath = null;
+var selectedFiles = new Array();
+var allowedExtensions = [
+    '.jpg',
+    '.jpeg',
+    '.png',
+    '.gif',
+];
 var server;
 
 var selectFolder = (selectedPath) => {
@@ -14,8 +22,8 @@ var selectFolder = (selectedPath) => {
     });
 };
 
-var unselectFolder = () => {
-    document.querySelector('#path-selected').innerHTML = "<i>Kein Ordner gewählt</i>";
+var unselectFolder = (msg) => {
+    document.querySelector('#path-selected').innerHTML = "<i>"+msg+"</i>";
     document.querySelectorAll('.path-selected-indicator').forEach((el) => {
         el.classList.remove('text-success');
         el.classList.remove('fa-check-circle');
@@ -71,15 +79,48 @@ var stopServer = () => {
 };
 
 var handleSelectedFolder = (filePaths) => {
-    if (filePaths) {
-        selectedPath = filePaths[0];
-        selectFolder(selectedPath);
-        unmuteServerSwitch();
-    } else {
+    if (! filePaths) {
         selectedPath = null;
-        unselectFolder();
+        selectedFiles = new Array();
+        unselectFolder('Kein Ordner gewählt');
+        document.querySelector('#image-founded').innerHTML = '';
         muteServerSwitch();
+        return;
     }
+
+    selectedPath = filePaths[0] + path.sep;
+
+    fs.readdir(selectedPath, (err, files) => {
+        if (err) {
+            selectedFiles = new Array();
+            unselectFolder('Fehler: Auf Ordner "'+selectedPath+'" kann nicht zugegriffen werden');
+            document.querySelector('#image-founded').innerHTML = '';
+            selectedPath = null;
+            muteServerSwitch();
+            return;
+        }
+
+        selectFolder(selectedPath);
+
+        files.forEach((value, index) => {
+            // Ignore files/folders with wrong extensions
+            var ext = path.extname(value).toLowerCase();
+            if (! allowedExtensions.includes(ext)) {
+                return;
+            }
+
+            // ignore folders and symlinks
+            var stat = fs.statSync(selectedPath + value);
+            if (! stat.isFile()) {
+                return;
+            }
+
+            selectedFiles.push({name: value, size: stat.size});
+        });
+
+        document.querySelector('#image-founded').innerHTML = '<i>'+selectedFiles.length+' Bilder gefunden</i>';
+        unmuteServerSwitch();
+    });
 };
 
 document.querySelector('#folder-selector').addEventListener('click', (e) => {
