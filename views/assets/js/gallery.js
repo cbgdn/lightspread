@@ -18,26 +18,50 @@
 import 'bootstrap/scss/bootstrap.scss';
 import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
 import '@fortawesome/fontawesome-free/scss/regular.scss';
+import 'lightgallery/dist/css/lightgallery.css';
 import '../css/gallery.scss';
 
 import $ from 'jquery';
+import 'lightgallery/dist/js/lightgallery.js';
 
 var setupImages = function(data) {
     var galleryElement = document.getElementById('lightgallery');
-    var baseUrl = '/images/';
+    var baseUrl = 'images/';
 
     for (var index in data) {
         var value = data[index];
 
+
+        // <div class="col-lg-3 col-md-4 col-xs-6">
+        // <a href="#" class="d-block mb-4 h-100">
+        // <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+        // </a>
+        // </div>
+
         var imgElem = document.createElement('img');
         imgElem.src = baseUrl + value.name;
+        imgElem.classList.add('img-fluid');
+        imgElem.classList.add('img-thumbnail');
 
         var aElem = document.createElement('a');
-        aElem.src = baseUrl + value.name;
+        aElem.href = baseUrl + value.name;
+        aElem.classList.add('galleryitem');
+        aElem.classList.add('d-inline-block');
+        aElem.classList.add('mb-4');
+        aElem.classList.add('h-100');
+        aElem.setAttribute('data-src', baseUrl + value.name);
         aElem.appendChild(imgElem);
 
-        galleryElement.appendChild(aElem);
+        var divElem = document.createElement('div');
+        divElem.classList.add('col-lg-3');
+        divElem.classList.add('col-md-4');
+        divElem.classList.add('col-xs-6');
+        divElem.appendChild(aElem);
+
+        galleryElement.appendChild(divElem);
     }
+
+    return true;
 }
 
 $(document).ready(function() {
@@ -48,7 +72,11 @@ $(document).ready(function() {
             console.error(errorThrown);
         },
         success: function(data, textStatus, jqXHR) {
-            setupImages(data.data);
+            if (setupImages(data.data)) {
+                $("#lightgallery").lightGallery({
+                    selector: '.galleryitem'
+                });
+            }
         }
     });
 });

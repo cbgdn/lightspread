@@ -53,6 +53,12 @@ module.exports = {
             }, {
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'file-loader?limit=10000&mimetype=image/svg+xml'
+            }, {
+                test: /\.png(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'file-loader?limit=10000&mimetype=image/png'
+            }, {
+                test: /\.gif(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'file-loader?limit=10000&mimetype=image/gif'
             },
         ]
     },
