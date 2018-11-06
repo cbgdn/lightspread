@@ -1,8 +1,11 @@
 const { dialog } = require('electron').remote;
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const express = require('express');
+// const sharp = require('sharp');
 
+var tmpPath = os.tmpdir() + path.sep + 'LightSpread-thumbs';
 var selectedPath = null;
 var selectedFiles = new Array();
 var selectedFilesIndex = new Array();
@@ -122,6 +125,14 @@ var handleSelectedFolder = (filePaths) => {
 
         selectFolder(selectedPath);
 
+        // Reset temp folder
+        try {
+            fs.rmdirSync(tmpPath);
+        } catch (err) {
+            console.log('tmp folder konnte nicht gelöscht werden: ' + err);
+        }
+        fs.mkdirSync(tmpPath);
+
         files.forEach((value, index) => {
             // Ignore files/folders with wrong extensions
             var ext = path.extname(value).toLowerCase();
@@ -135,6 +146,8 @@ var handleSelectedFolder = (filePaths) => {
                 return;
             }
 
+            // createThumbnailFromImage(selectedPath + value, value);
+
             selectedFiles.push({name: value, size: stat.size});
             selectedFilesIndex.push(value);
         });
@@ -143,6 +156,22 @@ var handleSelectedFolder = (filePaths) => {
         unmuteServerSwitch();
     });
 };
+
+var createThumbnailFromImage = (imagePath, name) => {
+    console.log(imagePath);
+    console.log(tmpPath);
+
+    sharp(imagePath)
+        .resize(300, 300)
+        .toFile(tmpPath + name, (err, info) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            console.log(info);
+        });
+}
 
 document.querySelector('#folder-selector').addEventListener('click', (e) => {
     dialog.showOpenDialog(
