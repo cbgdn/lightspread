@@ -3,7 +3,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const express = require('express');
-// const sharp = require('sharp');
+const sharp = require('sharp');
 
 var tmpPath = os.tmpdir() + path.sep + 'LightSpread-thumbs';
 var selectedPath = null;
@@ -85,6 +85,17 @@ var startServer = () => {
         res.download(selectedPath + name);
     });
 
+    app.get(['/thumbs/:name'], function (req, res) {
+        var name = req.params.name;
+
+        if (! selectedFilesIndex.includes(name)) {
+            res.sendStatus(404);
+            return;
+        }
+
+        res.download(tmpPath + path.sep + name);
+    });
+
     server = app.listen(3000);
 
     console.log('Server gestartet');
@@ -128,10 +139,10 @@ var handleSelectedFolder = (filePaths) => {
         // Reset temp folder
         try {
             fs.rmdirSync(tmpPath);
+            fs.mkdirSync(tmpPath);
         } catch (err) {
             console.log('tmp folder konnte nicht gelöscht werden: ' + err);
         }
-        fs.mkdirSync(tmpPath);
 
         files.forEach((value, index) => {
             // Ignore files/folders with wrong extensions
@@ -146,9 +157,14 @@ var handleSelectedFolder = (filePaths) => {
                 return;
             }
 
-            // createThumbnailFromImage(selectedPath + value, value);
+            createThumbnailFromImage(selectedPath + value, value);
 
-            selectedFiles.push({name: value, size: stat.size});
+            selectedFiles.push({
+                name: value,
+                path: 'images/' + value,
+                thumbnail: 'thumbs/' + value,
+                size: stat.size
+            });
             selectedFilesIndex.push(value);
         });
 
@@ -158,19 +174,17 @@ var handleSelectedFolder = (filePaths) => {
 };
 
 var createThumbnailFromImage = (imagePath, name) => {
-    console.log(imagePath);
-    console.log(tmpPath);
 
     sharp(imagePath)
         .resize(300, 300)
-        .toFile(tmpPath + name, (err, info) => {
+        .toFile(tmpPath + path.sep + name, (err, info) => {
             if (err) {
                 console.error(err);
                 return;
             }
-
-            console.log(info);
         });
+
+    console.log('Created thumbnail for '+imagePath);
 }
 
 document.querySelector('#folder-selector').addEventListener('click', (e) => {

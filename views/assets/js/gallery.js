@@ -26,11 +26,9 @@ import 'lightgallery/dist/js/lightgallery.js';
 
 var setupImages = function(data) {
     var galleryElement = document.getElementById('lightgallery');
-    var baseUrl = 'images/';
 
     for (var index in data) {
         var value = data[index];
-
 
         // <div class="col-lg-3 col-md-4 col-xs-6">
         // <a href="#" class="d-block mb-4 h-100">
@@ -39,17 +37,17 @@ var setupImages = function(data) {
         // </div>
 
         var imgElem = document.createElement('img');
-        imgElem.src = baseUrl + value.name;
+        imgElem.src = value.thumbnail;
         imgElem.classList.add('img-fluid');
         imgElem.classList.add('img-thumbnail');
 
         var aElem = document.createElement('a');
-        aElem.href = baseUrl + value.name;
+        aElem.href = value.path;
         aElem.classList.add('galleryitem');
         aElem.classList.add('d-inline-block');
         aElem.classList.add('mb-4');
         aElem.classList.add('h-100');
-        aElem.setAttribute('data-src', baseUrl + value.name);
+        aElem.setAttribute('data-src', value.path);
         aElem.appendChild(imgElem);
 
         var divElem = document.createElement('div');
