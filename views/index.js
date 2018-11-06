@@ -5,6 +5,7 @@ const express = require('express');
 
 var selectedPath = null;
 var selectedFiles = new Array();
+var selectedFilesIndex = new Array();
 var allowedExtensions = [
     '.jpg',
     '.jpeg',
@@ -64,6 +65,23 @@ var startServer = () => {
         res.sendFile(path.resolve(__dirname, './dist/gallery.js'));
     });
 
+    // JSON Response with image list
+    app.get(['/images'], function (req, res) {
+        res.append('Content-Type', 'application/json');
+        res.send(JSON.stringify({data: selectedFiles}));
+    });
+
+    app.get(['/images/:name'], function (req, res) {
+        var name = req.params.name;
+
+        if (! selectedFilesIndex.includes(name)) {
+            res.sendStatus(404);
+            return;
+        }
+
+        res.download(selectedPath + name);
+    });
+
     server = app.listen(3000);
 
     console.log('Server gestartet');
@@ -82,6 +100,7 @@ var handleSelectedFolder = (filePaths) => {
     if (! filePaths) {
         selectedPath = null;
         selectedFiles = new Array();
+        selectedFilesIndex = new Array();
         unselectFolder('Kein Ordner gewählt');
         document.querySelector('#image-founded').innerHTML = '';
         muteServerSwitch();
@@ -93,6 +112,7 @@ var handleSelectedFolder = (filePaths) => {
     fs.readdir(selectedPath, (err, files) => {
         if (err) {
             selectedFiles = new Array();
+            selectedFilesIndex = new Array();
             unselectFolder('Fehler: Auf Ordner "'+selectedPath+'" kann nicht zugegriffen werden');
             document.querySelector('#image-founded').innerHTML = '';
             selectedPath = null;
@@ -116,9 +136,10 @@ var handleSelectedFolder = (filePaths) => {
             }
 
             selectedFiles.push({name: value, size: stat.size});
+            selectedFilesIndex.push(value);
         });
 
-        document.querySelector('#image-founded').innerHTML = '<i>'+selectedFiles.length+' Bilder gefunden</i>';
+        document.querySelector('#image-founded').innerHTML = '<i>'+selectedFilesIndex.length+' Bilder gefunden</i>';
         unmuteServerSwitch();
     });
 };

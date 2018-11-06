@@ -18,4 +18,3 @@
 import 'bootstrap/scss/bootstrap.scss';
 import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
 import '@fortawesome/fontawesome-free/scss/regular.scss';
-import '../css/style.scss';

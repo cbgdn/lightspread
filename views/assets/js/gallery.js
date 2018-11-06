@@ -18,6 +18,37 @@
 import 'bootstrap/scss/bootstrap.scss';
 import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
 import '@fortawesome/fontawesome-free/scss/regular.scss';
-import '../css/style.scss';
+import '../css/gallery.scss';
 
-console.log('Hello World!');
+import $ from 'jquery';
+
+var setupImages = function(data) {
+    var galleryElement = document.getElementById('lightgallery');
+    var baseUrl = '/images/';
+
+    for (var index in data) {
+        var value = data[index];
+
+        var imgElem = document.createElement('img');
+        imgElem.src = baseUrl + value.name;
+
+        var aElem = document.createElement('a');
+        aElem.src = baseUrl + value.name;
+        aElem.appendChild(imgElem);
+
+        galleryElement.appendChild(aElem);
+    }
+}
+
+$(document).ready(function() {
+    $.ajax('/images', {
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert('Bilder konnten nicht geladen werden.');
+            console.log(textStatus);
+            console.error(errorThrown);
+        },
+        success: function(data, textStatus, jqXHR) {
+            setupImages(data.data);
+        }
+    });
+});
