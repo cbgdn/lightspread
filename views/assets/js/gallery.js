@@ -18,45 +18,30 @@
 import 'bootstrap/scss/bootstrap.scss';
 import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
 import '@fortawesome/fontawesome-free/scss/regular.scss';
+import '@fortawesome/fontawesome-free/scss/solid.scss';
 import 'lightgallery/dist/css/lightgallery.css';
+import 'lightgallery/dist/css/lg-transitions.css';
 import '../css/gallery.scss';
 
 import $ from 'jquery';
 import 'lightgallery/dist/js/lightgallery.js';
+import 'lightgallery/modules/lg-autoplay.js';
+import 'lightgallery/modules/lg-fullscreen.js';
 
 var setupImages = function(data) {
     var galleryElement = document.getElementById('lightgallery');
 
+    var template = '<div class="col-xl-1 col-lg-2 col-md-3 col-6"><a href="{image}" title="{title}" class="galleryitem d-block mb-4 h-100" data-src="{image}"><img class="img-fluid img-thumbnail" src="{thumb}" alt=""></a></div>';
+
     for (var index in data) {
         var value = data[index];
 
-        // <div class="col-lg-3 col-md-4 col-xs-6">
-        // <a href="#" class="d-block mb-4 h-100">
-        // <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-        // </a>
-        // </div>
+        var element = template
+            .replace('{image}', value.path)
+            .replace('{thumb}', value.thumbnail)
+            .replace('{title}', value.name);
 
-        var imgElem = document.createElement('img');
-        imgElem.src = value.thumbnail;
-        imgElem.classList.add('img-fluid');
-        imgElem.classList.add('img-thumbnail');
-
-        var aElem = document.createElement('a');
-        aElem.href = value.path;
-        aElem.classList.add('galleryitem');
-        aElem.classList.add('d-inline-block');
-        aElem.classList.add('mb-4');
-        aElem.classList.add('h-100');
-        aElem.setAttribute('data-src', value.path);
-        aElem.appendChild(imgElem);
-
-        var divElem = document.createElement('div');
-        divElem.classList.add('col-lg-3');
-        divElem.classList.add('col-md-4');
-        divElem.classList.add('col-xs-6');
-        divElem.appendChild(aElem);
-
-        galleryElement.appendChild(divElem);
+        galleryElement.innerHTML = galleryElement.innerHTML + element;
     }
 
     return true;
@@ -72,8 +57,15 @@ $(document).ready(function() {
         success: function(data, textStatus, jqXHR) {
             if (setupImages(data.data)) {
                 $("#lightgallery").lightGallery({
-                    selector: '.galleryitem'
+                    selector: '.galleryitem',
+                    mode: 'lg-soft-zoom',
+                    height: '100%',
+                    speed: 1500,
+                    hideBarsDelay: 1000,
+                    autoplay: false, // TODO: make it configurable
                 });
+                document.getElementById('loader').style.opacity = 0;
+                document.getElementById('loader').style.visibility = 'hidden';
             }
         }
     });
