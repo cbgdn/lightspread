@@ -42,6 +42,11 @@ function createMainWindow() {
         mainWindow = null;
     });
 
+    // Emitted when the application is quitting.
+    mainWindow.on('quit', () => {
+        mainWindow.webContents.send('app-shutdown');
+    });
+
     ipcMain.on('openexternalpage', function (e, url) {
         shell.openExternal(url);
     });

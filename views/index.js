@@ -268,3 +268,8 @@ for (var i = 0; i < externalButtons.length; i++) {
         ipcRenderer.send('openexternalpage', target);
     }, false);
 }
+
+// stop server on shutdown
+ipcRenderer.on('app-shutdown', (event, arg) => {
+    stopServer();
+})
