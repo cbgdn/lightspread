@@ -16,7 +16,7 @@
             </div>
             <div class="col-sm-6">
                 <div>
-                    <button id="folder-selector">Ordner wählen</button>
+                    <button id="folder-selector" class="btn btn-primary">Ordner wählen</button>
                     <div id="path-selected"><i>Kein Ordner gewählt</i></div>
                     <div id="image-founded"></div>
                 </div>
@@ -26,8 +26,16 @@
             </div>
             <div class="col-sm-6">
                 <div>
-                    <button id="server-switch" disabled>Start</button>
+                    <button id="server-switch" class="btn btn-secondary" disabled>Server starten</button>
                     <div id="server-status"></div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <h2 class="text-muted"><span class="browser-start-indicator fas fa-rocket"></span> 3. Galerie öffnen</h2>
+            </div>
+            <div class="col-sm-6">
+                <div>
+                    <button id="browser-start" formaction="http://localhost:3000" class="btn btn-secondary open-external" disabled>Browser öffnen</button>
                 </div>
             </div>
         </div>

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const isDevEnv = ('ELECTRON_IS_DEV' in process.env);
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -40,6 +40,10 @@ function createMainWindow() {
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         mainWindow = null;
+    });
+
+    ipcMain.on('openexternalpage', function (e, url) {
+        shell.openExternal(url);
     });
 }
 
