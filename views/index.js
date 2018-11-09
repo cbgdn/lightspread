@@ -264,7 +264,14 @@ var externalButtons = document.getElementsByClassName('open-external');
 for (var i = 0; i < externalButtons.length; i++) {
     externalButtons[i].addEventListener('click', function(e) {
         e.preventDefault();
-        var target = this.formAction;
+        var target = '';
+
+        if (this.href) {
+            target = this.href;
+        } else if (this.formAction) {
+            target = this.formAction;
+        }
+
         ipcRenderer.send('openexternalpage', target);
     }, false);
 }

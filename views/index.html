@@ -9,25 +9,25 @@
 <body>
     <div class="container-fluid">
         <h1>LightSpread</h1>
-        <p>LightSpread is using node <script>document.write(process.versions.node)</script>, Chrome <script>document.write(process.versions.chrome)</script>, and Electron <script>document.write(process.versions.electron)</script>.</p>
+        <p><a href="https://github.com/Art4/lightspread" class="open-external">LightSpread</a> ist lizensiert unter der <a href="https://www.gnu.org/licenses/gpl" class="open-external">GNU GPL-3.0</a>.</p>
         <div class="row">
             <div class="col-sm-6">
                 <h2><span class="path-selected-indicator far fa-circle"></span> 1. Ordner wählen</h2>
+                <div id="path-selected"><i>Kein Ordner gewählt</i></div>
+                <div id="image-founded"></div>
             </div>
             <div class="col-sm-6">
                 <div>
                     <button id="folder-selector" class="btn btn-primary">Ordner wählen</button>
-                    <div id="path-selected"><i>Kein Ordner gewählt</i></div>
-                    <div id="image-founded"></div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <h2 class="text-muted"><span class="server-run-indicator far fa-circle"></span> 2. Server starten</h2>
+                <div id="server-status">Server noch nicht gestartet</div>
             </div>
             <div class="col-sm-6">
                 <div>
                     <button id="server-switch" class="btn btn-secondary" disabled>Server starten</button>
-                    <div id="server-status"></div>
                 </div>
             </div>
             <div class="col-sm-6">
