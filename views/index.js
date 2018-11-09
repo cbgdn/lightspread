@@ -5,6 +5,7 @@ const os = require('os');
 const path = require('path');
 const express = require('express');
 const sharp = require('sharp');
+const packageData = require('../package.json');
 
 var tmpPath = os.tmpdir() + path.sep + 'LightSpread-thumbs';
 var selectedPath = null;
@@ -280,3 +281,10 @@ for (var i = 0; i < externalButtons.length; i++) {
 ipcRenderer.on('app-shutdown', (event, arg) => {
     stopServer();
 })
+
+// Set app version
+var elements = document.getElementsByClassName('ls-version');
+
+for (const element of elements) {
+    element.innerHTML = packageData.name + ' ' + packageData.version;
+}
