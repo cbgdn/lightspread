@@ -35,7 +35,7 @@ let copyAndMaybeResizeImage = (imagePath, name) => {
             })
             .toFile(basePath + path.sep + name, (err, info) => {
                 if (err) {
-                    reject(err);
+                    reject('Fehler beim Kopieren und Skalieren von ' + imagePath + ': ' + err);
                     return;
                 }
 
@@ -50,7 +50,7 @@ let createThumbnailFromImage = (imagePath, name) => {
             .resize(300, 300)
             .toFile(thumbnailPath + path.sep + name, (err, info) => {
                 if (err) {
-                    reject(err);
+                    reject('Fehler bei Thumbnail Erstellung von ' + imagePath + ': ' + err);
                     return;
                 }
 
@@ -86,13 +86,16 @@ ImageStore.prototype.reset = function() {
 
 ImageStore.prototype.add = function(id, imagePath, size) {
     return new Promise(function (resolve, reject) {
-        copyAndMaybeResizeImage(imagePath, id)
-            .catch(() => {
-                console.log('Fehler beim Kopieren und Skalieren von ' + imagePath);
+        Promise.all([
+            copyAndMaybeResizeImage(imagePath, id),
+            createThumbnailFromImage(imagePath, id)
+        ])
+            .catch((err) => {
+                console.log(err);
                 reject();
             })
             .then(() => {
-                console.log('Bild kopiert und skaliert: ' + imagePath);
+                console.log('Bild kopiert, skaliert und Thumbnail erstellt: ' + imagePath);
 
                 // Add to store
                 storeData.set(id, {
@@ -101,15 +104,6 @@ ImageStore.prototype.add = function(id, imagePath, size) {
                     thumbFile: thumbnailPath + path.sep + id,
                     size: size,
                 });
-
-                // Erstelle Thumbnail von Bild
-                createThumbnailFromImage(imagePath, id)
-                    .catch(() => {
-                        console.log('Fehler bei Thumbnail Erstellung von ' + imagePath);
-                    })
-                    .then(() => {
-                        console.log('Thumbnail erstellt von ' + imagePath);
-                    });
 
                 resolve();
             });

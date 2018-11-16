@@ -203,8 +203,7 @@ var handleSelectedFolder = (filePaths) => {
         });
 
         Promise.all(imageOperations)
-            .then((val) => {
-                console.log(val);
+            .then(() => {
                 selectFolder(selectedPath);
                 document.querySelector('#image-founded').innerHTML = '<i>'+store.count()+' Bilder gefunden</i>';
                 unmuteServerSwitch();
