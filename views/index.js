@@ -1,16 +1,13 @@
 const { dialog } = require('electron').remote;
 const { ipcRenderer } = require('electron');
 const fs = require('fs');
-const os = require('os');
 const path = require('path');
 const express = require('express');
-const sharp = require('sharp');
 const packageData = require('../package.json');
+const ImageStore = require('../src/imagestore');
+const store = new ImageStore();
 
-var tmpPath = os.tmpdir() + path.sep + 'LightSpread-thumbs';
 var selectedPath = null;
-var selectedFiles = new Array();
-var selectedFilesIndex = new Array();
 var allowedExtensions = [
     '.jpg',
     '.jpeg',
@@ -100,30 +97,46 @@ var startServer = () => {
 
     // JSON Response with image list
     app.get(['/images'], function (req, res) {
-        res.append('Content-Type', 'application/json');
-        res.send(JSON.stringify({data: selectedFiles}));
+        store.getAllData()
+        .then((files) => {
+            let data = new Array();
+
+            for (let value of files) {
+                data.push({
+                    name: value.name,
+                    path: 'images/' + value.name,
+                    thumbnail: 'thumbs/' + value.name,
+                    size: value.size,
+                });
+            }
+
+            res.append('Content-Type', 'application/json');
+            res.send(JSON.stringify({data: data}));
+        });
     });
 
     app.get(['/images/:name'], function (req, res) {
         var name = req.params.name;
 
-        if (! selectedFilesIndex.includes(name)) {
+        store.getData(name)
+        .catch(() => {
             res.sendStatus(404);
-            return;
-        }
-
-        res.download(selectedPath + name);
+        })
+        .then((data) => {
+            res.download(data.file);
+        });
     });
 
     app.get(['/thumbs/:name'], function (req, res) {
         var name = req.params.name;
 
-        if (! selectedFilesIndex.includes(name)) {
+        store.getData(name)
+        .catch(() => {
             res.sendStatus(404);
-            return;
-        }
-
-        res.download(tmpPath + path.sep + name);
+        })
+        .then((data) => {
+            res.download(data.thumbFile);
+        });
     });
 
     server = app.listen(3000);
@@ -147,8 +160,7 @@ var stopServer = () => {
 var handleSelectedFolder = (filePaths) => {
     if (! filePaths) {
         selectedPath = null;
-        selectedFiles = new Array();
-        selectedFilesIndex = new Array();
+        store.reset();
         unselectFolder('Kein Ordner gewählt');
         document.querySelector('#image-founded').innerHTML = '';
         muteServerSwitch();
@@ -159,8 +171,7 @@ var handleSelectedFolder = (filePaths) => {
 
     fs.readdir(selectedPath, (err, files) => {
         if (err) {
-            selectedFiles = new Array();
-            selectedFilesIndex = new Array();
+            store.reset();
             unselectFolder('Fehler: Auf Ordner "'+selectedPath+'" kann nicht zugegriffen werden');
             document.querySelector('#image-founded').innerHTML = '';
             selectedPath = null;
@@ -168,19 +179,10 @@ var handleSelectedFolder = (filePaths) => {
             return;
         }
 
-        selectFolder(selectedPath);
+        // Reset store
+        store.reset();
 
-        // Reset temp folder
-        try {
-            fs.rmdirSync(tmpPath);
-            fs.mkdirSync(tmpPath);
-        } catch (err) {
-            console.log('tmp folder konnte nicht gelöscht werden: ' + err);
-        }
-
-        // Reset selected files
-        selectedFiles = new Array();
-        selectedFilesIndex = new Array();
+        let imageOperations = new Array();
 
         files.forEach((value, index) => {
             // Ignore files/folders with wrong extensions
@@ -195,34 +197,20 @@ var handleSelectedFolder = (filePaths) => {
                 return;
             }
 
-            createThumbnailFromImage(selectedPath + value, value);
-
-            selectedFiles.push({
-                name: value,
-                path: 'images/' + value,
-                thumbnail: 'thumbs/' + value,
-                size: stat.size
-            });
-            selectedFilesIndex.push(value);
+            imageOperations.push(
+                store.add(value, selectedPath + value, stat.size)
+            );
         });
 
-        document.querySelector('#image-founded').innerHTML = '<i>'+selectedFilesIndex.length+' Bilder gefunden</i>';
-        unmuteServerSwitch();
+        Promise.all(imageOperations)
+            .then((val) => {
+                console.log(val);
+                selectFolder(selectedPath);
+                document.querySelector('#image-founded').innerHTML = '<i>'+store.count()+' Bilder gefunden</i>';
+                unmuteServerSwitch();
+            });
     });
 };
-
-var createThumbnailFromImage = (imagePath, name) => {
-    sharp(imagePath)
-        .resize(300, 300)
-        .toFile(tmpPath + path.sep + name, (err, info) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-        });
-
-    console.log('Created thumbnail for '+imagePath);
-}
 
 document.querySelector('#folder-selector').addEventListener('click', (e) => {
     dialog.showOpenDialog(
