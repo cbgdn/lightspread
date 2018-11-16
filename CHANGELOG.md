@@ -8,7 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
+- Bilder werden bei Ordnerwahl kopiert auf max 4096 Pixel runterskaliert
+- Autoplay zeigt keinen Progress mehr an
+- Autoplay wechselt Bilder nach 8 Sekunden statt nach 5 Sekunden
+- Port für Webserver wurde von 3000 auf 8080 geändert
 - Alle Abhängigkeiten aktualisiert
+
+### Fixed
+
+- Vorschaubilder werden jetzt in Projektordner statt Temp-Ordner erstellt
 
 ## [1.0.0-beta.1] - 2018-11-09
 

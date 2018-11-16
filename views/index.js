@@ -15,6 +15,7 @@ var allowedExtensions = [
     '.gif',
 ];
 var server;
+let serverPort = 8080;
 
 var selectFolder = (selectedPath) => {
     document.querySelector('#folder-selector').classList.add('btn-secondary');
@@ -139,7 +140,7 @@ var startServer = () => {
         });
     });
 
-    server = app.listen(3000);
+    server = app.listen(serverPort);
 
     document.querySelector('#server-switch').classList.add('btn-secondary');
     document.querySelector('#server-switch').classList.remove('btn-primary');
@@ -237,7 +238,7 @@ document.querySelector('#server-switch').addEventListener('click', (e) => {
         startServer();
         unmuteBrowserButton();
         e.target.innerHTML = 'Server stoppen';
-        document.querySelector('#server-status').innerHTML = '<i>Server gestartet unter http://localhost:3000</i>';
+        document.querySelector('#server-status').innerHTML = '<i>Server gestartet unter http://localhost:'+serverPort+'</i>';
         document.querySelectorAll('.server-run-indicator').forEach((el) => {
             el.classList.remove('fa-circle');
             el.classList.add('fa-check-circle');

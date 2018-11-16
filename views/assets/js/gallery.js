@@ -63,6 +63,8 @@ $(document).ready(function() {
                     speed: 1500,
                     hideBarsDelay: 1000,
                     autoplay: false, // TODO: make it configurable
+                    pause: 8000, // TODO: make it configurable
+                    progressBar: false, // TODO: make it configurable
                 });
                 document.getElementById('loader').style.opacity = 0;
                 document.getElementById('loader').style.visibility = 'hidden';
