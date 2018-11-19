@@ -28,6 +28,8 @@ import 'lightgallery/dist/js/lightgallery.js';
 import 'lightgallery/modules/lg-autoplay.js';
 import 'lightgallery/modules/lg-fullscreen.js';
 
+var autoHideControlsTimeout = 2000;
+
 var setupImages = function(data) {
     var galleryElement = document.getElementById('lightgallery');
 
@@ -47,6 +49,41 @@ var setupImages = function(data) {
     return true;
 }
 
+// Autohide cursor after 5 seconds
+// Thanks to https://stackoverflow.com/a/31798987
+$(function() {
+    var timer;
+    var fadeInBuffer = false;
+    $(document).mousemove(function() {
+        if (!fadeInBuffer) {
+            if (timer) {
+                clearTimeout(timer);
+                timer = 0;
+            }
+
+            $('html').css({
+                cursor: ''
+            });
+        } else {
+            $('html').css({
+                cursor: 'default'
+            });
+            fadeInBuffer = false;
+        }
+
+        timer = setTimeout(function() {
+            $('html').css({
+                cursor: 'none'
+            });
+
+            fadeInBuffer = true;
+        }, autoHideControlsTimeout);
+    });
+    $('.html5gallery-box-0').css({
+        cursor: 'default'
+    });
+});
+
 $(document).ready(function() {
     $.ajax('/images', {
         error: function(jqXHR, textStatus, errorThrown) {
@@ -57,11 +94,11 @@ $(document).ready(function() {
         success: function(data, textStatus, jqXHR) {
             if (setupImages(data.data)) {
                 $("#lightgallery").lightGallery({
-                    selector: '.galleryitem',
+                    selector: '.galleryitem', // TODO: make it configurable
                     mode: 'lg-soft-zoom',
                     height: '100%',
-                    speed: 1500,
-                    hideBarsDelay: 1000,
+                    speed: 1000, // TODO: make it configurable
+                    hideBarsDelay: autoHideControlsTimeout,
                     autoplay: false, // TODO: make it configurable
                     pause: 8000, // TODO: make it configurable
                     progressBar: false, // TODO: make it configurable
