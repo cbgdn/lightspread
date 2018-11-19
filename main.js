@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-const { app, BrowserWindow, ipcMain, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, nativeImage, shell } = require('electron');
 const isDevEnv = ('ELECTRON_IS_DEV' in process.env);
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -48,6 +48,48 @@ function createMainWindow() {
     // Emitted when the application is quitting.
     mainWindow.on('quit', () => {
         mainWindow.webContents.send('app-shutdown');
+    });
+
+    let galleryWindow = null;
+
+    ipcMain.on('opengallery', function (e, arg) {
+        // Do nothing if gallery allready started
+        if (galleryWindow !== null) {
+            return;
+        }
+
+        galleryWindow = new BrowserWindow({
+            width: 600,
+            height: 800,
+            parent: mainWindow,
+            kiosk: false,
+            frame: true,
+            // fullscreen: true,
+            backgroundColor: '#333333',
+            autoHideMenuBar: true,
+            title: 'LightSpread Gallery',
+            icon: nativeImage.createFromPath('./img/lightspread-256.png'),
+        });
+
+        // galleryWindow.webContents.openDevTools({mode: 'bottom'});
+
+        galleryWindow.once('ready-to-show', () => {
+            galleryWindow.show();
+            // galleryWindow.focus();
+        });
+
+        galleryWindow.loadURL(arg);
+
+        galleryWindow.on('closed', () => {
+             galleryWindow = null;
+        });
+    });
+
+    ipcMain.on('closegallery', function (e) {
+        if (galleryWindow) {
+            galleryWindow.close();
+            galleryWindow = null;
+        }
     });
 
     ipcMain.on('openexternalpage', function (e, url) {

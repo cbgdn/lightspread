@@ -164,7 +164,7 @@ let stopServer = () => {
 };
 
 let startGallery = (url) => {
-    ipcRenderer.send('openexternalpage', url);
+    ipcRenderer.send('opengallery', url);
 };
 
 let handleSelectedFolder = (filePaths) => {
