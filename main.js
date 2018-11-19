@@ -59,12 +59,12 @@ function createMainWindow() {
         }
 
         galleryWindow = new BrowserWindow({
-            width: 600,
-            height: 800,
+            // width: 800,
+            // height: 600,
             parent: mainWindow,
             kiosk: false,
             frame: true,
-            // fullscreen: true,
+            fullscreen: true,
             backgroundColor: '#333333',
             autoHideMenuBar: true,
             title: 'LightSpread Gallery',

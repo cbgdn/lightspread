@@ -163,10 +163,6 @@ let stopServer = () => {
     console.log('Server gestoppt');
 };
 
-let startGallery = (url) => {
-    ipcRenderer.send('opengallery', url);
-};
-
 let handleSelectedFolder = (filePaths) => {
     if (! filePaths) {
         selectedPath = null;
@@ -261,12 +257,15 @@ document.querySelector('#server-switch').addEventListener('click', (e) => {
 // If gallery starter is clicked
 document.querySelector('#gallery-start').addEventListener('click', (e) => {
     e.preventDefault();
-    startGallery('http://'+serverHost+':'+serverPort);
+    let url = 'http://'+serverHost+':'+serverPort;
+
+    ipcRenderer.send('opengallery', url);
 });
 
 // If browser starter is clicked
 document.querySelector('#browser-start').addEventListener('click', (e) => {
     e.preventDefault();
+
     ipcRenderer.send('openexternalpage', 'http://'+serverHost+':'+serverPort);
 });
 

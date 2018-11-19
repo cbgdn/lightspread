@@ -6,9 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- LightSpread kann die Galerie in einem eigenen Fullscreen-Fenster starten, alternativ kann weiterhin der native Browser verwendet werden
+
 ### Changed
 
-- Alle Abhängigkeiten aktualisiert
+- In der Galerie wird die Maus zusammen mit den Steuerungselementen nach 2 Sekunden ausgeblendet
+- Alle Abhängigkeiten wurden aktualisiert
 
 ### Fixed
 
@@ -22,7 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Autoplay zeigt keinen Progress mehr an
 - Autoplay wechselt Bilder nach 8 Sekunden statt nach 5 Sekunden
 - Port für Webserver wurde von 3000 auf 8080 geändert
-- Alle Abhängigkeiten aktualisiert
+- Alle Abhängigkeiten wurden aktualisiert
 
 ### Fixed
 
@@ -32,10 +37,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- simple window for choosing a folder, start the webserver and open the browser
-- create thumbnails if folder is chosen
-- show images with autoplay and fullscreen with [jQuery lightgallery](http://sachinchoolur.github.io/lightGallery/)
-- this CHANGELOG.md
+- Einfaches Fenster mit Buttons, um den Bilderordner zu wählen, den Server zu starten und den Browser zu öffnen
+- Thumbnails werden erstellt, sobald ein Ordner gewählt wurde
+- Zeige Bilder mit Autoplay und Fullscreen dank [jQuery lightgallery](http://sachinchoolur.github.io/lightGallery/)
+- Diese CHANGELOG.md Datei
 
 [Unreleased]: https://github.com/Art4/lightspread/compare/1.0.0-beta.2...HEAD
 [1.0.0-beta.2]: https://github.com/Art4/lightspread/compare/1.0.0-beta.1...1.0.0-beta.2
