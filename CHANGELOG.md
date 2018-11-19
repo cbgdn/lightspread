@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.0.0-beta.3] - 2018-11-19
+
 ### Added
 
 - LightSpread kann die Galerie in einem eigenen Fullscreen-Fenster starten, alternativ kann weiterhin der native Browser verwendet werden
@@ -42,6 +44,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Zeige Bilder mit Autoplay und Fullscreen dank [jQuery lightgallery](http://sachinchoolur.github.io/lightGallery/)
 - Diese CHANGELOG.md Datei
 
-[Unreleased]: https://github.com/Art4/lightspread/compare/1.0.0-beta.2...HEAD
+[Unreleased]: https://github.com/Art4/lightspread/compare/1.0.0-beta.3...HEAD
+[1.0.0-beta.3]: https://github.com/Art4/lightspread/compare/1.0.0-beta.2...1.0.0-beta.3
 [1.0.0-beta.2]: https://github.com/Art4/lightspread/compare/1.0.0-beta.1...1.0.0-beta.2
 [1.0.0-beta.1]: https://github.com/Art4/lightspread/compare/898856bb0c079e4e823d68441762a4782621dfeb...1.0.0-beta.1
