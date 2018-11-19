@@ -59,6 +59,28 @@ let createThumbnailFromImage = (imagePath, name) => {
     });
 };
 
+/**
+ * Remove folder recursive
+ * Thanks to https://stackoverflow.com/a/32197381
+ */
+let deleteFolderRecursive = function(folder) {
+    if (fs.existsSync(folder)) {
+        fs.readdirSync(folder).forEach(function(file, index) {
+            var curPath = folder + path.sep + file;
+
+            if (fs.lstatSync(curPath).isDirectory()) {
+                // recurse
+                deleteFolderRecursive(curPath);
+            } else {
+                // delete file
+                fs.unlinkSync(curPath);
+            }
+        });
+
+        fs.rmdirSync(folder);
+    }
+};
+
 // Constructor
 function ImageStore() {
     basePath = electron.remote.app.getPath('userData') + path.sep + 'imagestore';
@@ -69,7 +91,8 @@ function ImageStore() {
 ImageStore.prototype.reset = function() {
     // Reset image folder
     try {
-        fs.rmdirSync(basePath);
+        deleteFolderRecursive(basePath);
+        console.log('Image Cache Folder wurde gelöscht');
 
         try {
             fs.mkdirSync(basePath);

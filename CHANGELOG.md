@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Alle Abhängigkeiten aktualisiert
 
+### Fixed
+
+- Bilder im Cacheordner werden rekursiv gelöscht, bevor neue Bilder erstellt werden
+
 ## [1.0.0-beta.2] - 2018-11-16
 
 ### Changed
