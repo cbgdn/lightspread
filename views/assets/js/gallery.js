@@ -49,6 +49,32 @@ var setupImages = function(data) {
     return true;
 }
 
+var setupGallery = function() {
+    // autostart, if location has the #autostart hash
+    var autostart = (window.location.hash == '#autostart');
+
+    $("#lightgallery").lightGallery({
+        selector: '.galleryitem', // TODO: make it configurable
+        mode: 'lg-soft-zoom',
+        height: '100%',
+        preload: 2,
+        speed: 1000, // TODO: make it configurable
+        hideBarsDelay: autoHideControlsTimeout,
+        autoplay: autostart,
+        pause: 8000, // TODO: make it configurable
+        progressBar: false, // TODO: make it configurable
+    });
+
+    // Remove loader
+    document.getElementById('loader').style.opacity = 0;
+    document.getElementById('loader').style.visibility = 'hidden';
+
+    // Start with first slide
+    if (autostart) {
+        $(".galleryitem").first().trigger('click');
+    }
+};
+
 // Autohide cursor after 5 seconds
 // Thanks to https://stackoverflow.com/a/31798987
 $(function() {
@@ -84,6 +110,7 @@ $(function() {
     });
 });
 
+// Load image list and setup gallery
 $(document).ready(function() {
     $.ajax('/images', {
         error: function(jqXHR, textStatus, errorThrown) {
@@ -93,18 +120,7 @@ $(document).ready(function() {
         },
         success: function(data, textStatus, jqXHR) {
             if (setupImages(data.data)) {
-                $("#lightgallery").lightGallery({
-                    selector: '.galleryitem', // TODO: make it configurable
-                    mode: 'lg-soft-zoom',
-                    height: '100%',
-                    speed: 1000, // TODO: make it configurable
-                    hideBarsDelay: autoHideControlsTimeout,
-                    autoplay: false, // TODO: make it configurable
-                    pause: 8000, // TODO: make it configurable
-                    progressBar: false, // TODO: make it configurable
-                });
-                document.getElementById('loader').style.opacity = 0;
-                document.getElementById('loader').style.visibility = 'hidden';
+                setupGallery();
             }
         }
     });

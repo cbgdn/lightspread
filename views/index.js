@@ -281,7 +281,7 @@ document.querySelector('#server-switch').addEventListener('click', (e) => {
 // If gallery starter is clicked
 document.querySelector('#gallery-start').addEventListener('click', (e) => {
     e.preventDefault();
-    let url = 'http://'+serverHost+':'+serverPort;
+    let url = `http://${serverHost}:${serverPort}/#autostart`;
 
     ipcRenderer.send('opengallery', url);
 });
@@ -289,8 +289,9 @@ document.querySelector('#gallery-start').addEventListener('click', (e) => {
 // If browser starter is clicked
 document.querySelector('#browser-start').addEventListener('click', (e) => {
     e.preventDefault();
+    let url = `http://${serverHost}:${serverPort}/#autostart`;
 
-    ipcRenderer.send('openexternalpage', 'http://'+serverHost+':'+serverPort);
+    ipcRenderer.send('openexternalpage', url);
 });
 
 // open links in external browser

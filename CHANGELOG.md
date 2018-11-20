@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- LightSpread startet im Fullscreen-Fenster sofort mit dem ersten Bild als Autoplay
+- Beim Import der Bilder wird ein Fortschrittsbalken angezeigt
+
 ## [1.0.0-beta.3] - 2018-11-19
 
 ### Added
