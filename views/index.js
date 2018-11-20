@@ -20,10 +20,10 @@ let server;
 let serverHost = 'localhost';
 let serverPort = 8080;
 
-let selectFolder = (selectedPath) => {
+let selectFolder = (msg) => {
     document.querySelector('#folder-selector').classList.add('btn-secondary');
     document.querySelector('#folder-selector').classList.remove('btn-primary');
-    document.querySelector('#path-selected').innerHTML = selectedPath;
+    document.querySelector('#import-status').innerHTML = msg;
     document.querySelectorAll('.path-selected-indicator').forEach((el) => {
         el.classList.remove('fa-circle');
         el.classList.add('fa-check-circle');
@@ -34,7 +34,7 @@ let selectFolder = (selectedPath) => {
 let unselectFolder = (msg) => {
     document.querySelector('#folder-selector').classList.add('btn-primary');
     document.querySelector('#folder-selector').classList.remove('btn-secondary');
-    document.querySelector('#path-selected').innerHTML = "<i>"+msg+"</i>";
+    document.querySelector('#import-status').innerHTML = "<i>"+msg+"</i>";
     document.querySelectorAll('.path-selected-indicator').forEach((el) => {
         el.classList.remove('text-success');
         el.classList.remove('fa-check-circle');
@@ -163,12 +163,24 @@ let stopServer = () => {
     console.log('Server gestoppt');
 };
 
+let startProgressbar = () => {
+    document.querySelector('#import-status').innerHTML = '<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div></div>';
+};
+
+let updateProgressbar = (percent) => {
+    let bar = document.querySelector('#import-status .progress-bar');
+
+    if (bar) {
+        bar.style.width = `${percent}%`;
+        bar.innerHTML = `${percent}%`;
+    }
+};
+
 let handleSelectedFolder = (filePaths) => {
     if (! filePaths) {
         selectedPath = null;
         store.reset();
         unselectFolder('Kein Ordner gewählt');
-        document.querySelector('#image-founded').innerHTML = '';
         muteServerSwitch();
         return;
     }
@@ -179,7 +191,6 @@ let handleSelectedFolder = (filePaths) => {
         if (err) {
             store.reset();
             unselectFolder('Fehler: Auf Ordner "'+selectedPath+'" kann nicht zugegriffen werden');
-            document.querySelector('#image-founded').innerHTML = '';
             selectedPath = null;
             muteServerSwitch();
             return;
@@ -188,7 +199,13 @@ let handleSelectedFolder = (filePaths) => {
         // Reset store
         store.reset();
 
+        // setup progressbar
+        startProgressbar();
+
         let imageOperations = new Array();
+        let importFailed = 0;
+        let importSuccessed = 0;
+        let importProgressed = 0;
 
         files.forEach((value, index) => {
             // Ignore files/folders with wrong extensions
@@ -203,15 +220,22 @@ let handleSelectedFolder = (filePaths) => {
                 return;
             }
 
-            imageOperations.push(
+            imageOperations.push(new Promise(function (resolve, reject) {
                 store.add(value, selectedPath + value, stat.size)
-            );
+                    .then(() => {
+                        importSuccessed++;
+                    })
+                    .finally(() => {
+                        importProgressed++;
+                        updateProgressbar(Math.round(100*(importProgressed/files.length), 0));
+                        resolve();
+                    });
+            }));
         });
 
         Promise.all(imageOperations)
             .then(() => {
-                selectFolder(selectedPath);
-                document.querySelector('#image-founded').innerHTML = '<i>'+store.count()+' Bilder gefunden</i>';
+                selectFolder(`<i>${importSuccessed} von ${importProgressed} Bildern wurden importiert</i>`);
                 unmuteServerSwitch();
             });
     });

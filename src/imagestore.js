@@ -113,10 +113,6 @@ ImageStore.prototype.add = function(id, imagePath, size) {
             copyAndMaybeResizeImage(imagePath, id),
             createThumbnailFromImage(imagePath, id)
         ])
-            .catch((err) => {
-                console.log(err);
-                reject();
-            })
             .then(() => {
                 console.log('Bild kopiert, skaliert und Thumbnail erstellt: ' + imagePath);
 
@@ -129,6 +125,10 @@ ImageStore.prototype.add = function(id, imagePath, size) {
                 });
 
                 resolve();
+            })
+            .catch((err) => {
+                console.log(err);
+                reject();
             });
     });
 };
@@ -148,11 +148,6 @@ ImageStore.prototype.getAllData = function() {
     return new Promise(function (resolve, reject) {
         resolve(storeData.values());
     });
-};
-
-// Count all images
-ImageStore.prototype.count = function() {
-    return storeData.size;
 };
 
 // export the class
