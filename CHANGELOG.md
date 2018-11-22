@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.0.0-beta.5] - 2018-11-22
+
+### Fixed
+
+- Die Gallery im Vollbild kann mit Escape oder F11 beendet und mit F11 wieder gestartet werden
+
 ## [1.0.0-beta.4] - 2018-11-19
 
 ### Added
@@ -51,7 +57,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Zeige Bilder mit Autoplay und Fullscreen dank [jQuery lightgallery](http://sachinchoolur.github.io/lightGallery/)
 - Diese CHANGELOG.md Datei
 
-[Unreleased]: https://github.com/Art4/lightspread/compare/1.0.0-beta.4...HEAD
+[Unreleased]: https://github.com/Art4/lightspread/compare/1.0.0-beta.5...HEAD
+[1.0.0-beta.5]: https://github.com/Art4/lightspread/compare/1.0.0-beta.4...1.0.0-beta.5
 [1.0.0-beta.4]: https://github.com/Art4/lightspread/compare/1.0.0-beta.3...1.0.0-beta.4
 [1.0.0-beta.3]: https://github.com/Art4/lightspread/compare/1.0.0-beta.2...1.0.0-beta.3
 [1.0.0-beta.2]: https://github.com/Art4/lightspread/compare/1.0.0-beta.1...1.0.0-beta.2
