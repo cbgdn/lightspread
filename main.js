@@ -21,8 +21,11 @@ const isDevEnv = ('ELECTRON_IS_DEV' in process.env);
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+let galleryWindow = null;
 
-function createMainWindow() {
+
+
+let createMainWindow = () => {
     // Create the browser window.
     mainWindow = new BrowserWindow({
         width: 700,
@@ -52,49 +55,63 @@ function createMainWindow() {
 
     let galleryWindow = null;
 
-    ipcMain.on('opengallery', function (e, arg) {
-        // Do nothing if gallery allready started
-        if (galleryWindow !== null) {
-            return;
-        }
+    ipcMain.on('opengallery', createGalleryWindow);
 
-        galleryWindow = new BrowserWindow({
-            // width: 800,
-            // height: 600,
-            parent: mainWindow,
-            kiosk: false,
-            frame: true,
-            fullscreen: true,
-            backgroundColor: '#333333',
-            autoHideMenuBar: true,
-            title: 'LightSpread Gallery',
-            icon: nativeImage.createFromPath('./img/lightspread-256.png'),
-        });
-
-        // galleryWindow.webContents.openDevTools({mode: 'bottom'});
-
-        galleryWindow.once('ready-to-show', () => {
-            galleryWindow.show();
-            // galleryWindow.focus();
-        });
-
-        galleryWindow.loadURL(arg);
-
-        galleryWindow.on('closed', () => {
-             galleryWindow = null;
-        });
-    });
-
-    ipcMain.on('closegallery', function (e) {
-        if (galleryWindow) {
-            galleryWindow.close();
-            galleryWindow = null;
-        }
-    });
+    ipcMain.on('closegallery', closeGalleryWindow);
 
     ipcMain.on('openexternalpage', function (e, url) {
         shell.openExternal(url);
     });
+};
+
+let createGalleryWindow = (e, arg) => {
+    // Do nothing if gallery allready started
+    if (galleryWindow !== null) {
+        return;
+    }
+
+    galleryWindow = new BrowserWindow({
+        // width: 800,
+        // height: 600,
+        // parent: mainWindow,
+        // frame: true,
+        fullscreen: true,
+        backgroundColor: '#333333',
+        autoHideMenuBar: true,
+        title: 'LightSpread Gallery',
+        icon: nativeImage.createFromPath('./img/lightspread-256.png'),
+    });
+
+    // galleryWindow.webContents.openDevTools({mode: 'bottom'});
+
+    galleryWindow.once('ready-to-show', () => {
+        galleryWindow.show();
+        // galleryWindow.focus();
+    });
+
+    // Allow leave fullscreen with esc
+    galleryWindow.webContents.on('before-input-event', (e, input) => {
+        if (input.type != 'keyUp') {
+            return;
+        }
+
+        if (galleryWindow.isFullScreen() && input.key == 'Escape') {
+            galleryWindow.setFullScreen(false);
+        }
+    });
+
+    galleryWindow.loadURL(arg);
+
+    galleryWindow.on('closed', () => {
+         galleryWindow = null;
+    });
+};
+
+let closeGalleryWindow = (e) => {
+    if (galleryWindow) {
+        galleryWindow.close();
+        galleryWindow = null;
+    }
 }
 
 // This method will be called when Electron has finished

@@ -315,7 +315,7 @@ for (let i = 0; i < externalButtons.length; i++) {
 // stop server on shutdown
 ipcRenderer.on('app-shutdown', (event, arg) => {
     stopServer();
-})
+});
 
 // Set app version
 let elements = document.getElementsByClassName('ls-version');
