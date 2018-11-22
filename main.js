@@ -95,8 +95,12 @@ let createGalleryWindow = (e, arg) => {
             return;
         }
 
-        if (galleryWindow.isFullScreen() && input.key == 'Escape') {
+        if (galleryWindow.isFullScreen() && (input.key == 'Escape' || input.key == 'F11')) {
+            e.preventDefault();
             galleryWindow.setFullScreen(false);
+        } else if (! galleryWindow.isFullScreen() && input.key == 'F11') {
+            e.preventDefault();
+            galleryWindow.setFullScreen(true);
         }
     });
 
