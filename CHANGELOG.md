@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.0.0-beta.6] - 2018-11-27
+
 ### Changed
 
 - Alle Abhängigkeiten wurden aktualisiert
@@ -66,7 +68,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Zeige Bilder mit Autoplay und Fullscreen dank [jQuery lightgallery](http://sachinchoolur.github.io/lightGallery/)
 - Diese CHANGELOG.md Datei
 
-[Unreleased]: https://github.com/Art4/lightspread/compare/1.0.0-beta.5...HEAD
+[Unreleased]: https://github.com/Art4/lightspread/compare/1.0.0-beta.6...HEAD
+[1.0.0-beta.6]: https://github.com/Art4/lightspread/compare/1.0.0-beta.5...1.0.0-beta.6
 [1.0.0-beta.5]: https://github.com/Art4/lightspread/compare/1.0.0-beta.4...1.0.0-beta.5
 [1.0.0-beta.4]: https://github.com/Art4/lightspread/compare/1.0.0-beta.3...1.0.0-beta.4
 [1.0.0-beta.3]: https://github.com/Art4/lightspread/compare/1.0.0-beta.2...1.0.0-beta.3
