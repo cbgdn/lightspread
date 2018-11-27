@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Alle Abhängigkeiten wurden aktualisiert
 
+### Fixed
+
+- Drag- und Swipe-Support deaktiviert, wenn wir uns in der Autostart-Gallery befinden, damit die Maus ausgeblendet wird
+
 ## [1.0.0-beta.5] - 2018-11-22
 
 ### Fixed

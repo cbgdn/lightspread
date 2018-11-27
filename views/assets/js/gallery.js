@@ -60,6 +60,8 @@ var setupGallery = function() {
         preload: 2,
         speed: 1000, // TODO: make it configurable
         hideBarsDelay: autoHideControlsTimeout,
+        enableDrag: ! autostart,
+        enableSwipe: ! autostart,
         autoplay: autostart,
         pause: 8000, // TODO: make it configurable
         progressBar: false, // TODO: make it configurable
@@ -75,12 +77,13 @@ var setupGallery = function() {
     }
 };
 
-// Autohide cursor after 5 seconds
+// Autohide cursor after some seconds
 // Thanks to https://stackoverflow.com/a/31798987
 $(function() {
     var timer;
     var fadeInBuffer = false;
-    $(document).mousemove(function() {
+
+    var resetTimer = function() {
         if (!fadeInBuffer) {
             if (timer) {
                 clearTimeout(timer);
@@ -104,10 +107,13 @@ $(function() {
 
             fadeInBuffer = true;
         }, autoHideControlsTimeout);
-    });
-    $('.html5gallery-box-0').css({
-        cursor: 'default'
-    });
+    };
+
+    // Start timer on start
+    resetTimer();
+
+    // Reset timer on mousemove
+    $(document).mousemove(resetTimer);
 });
 
 // Load image list and setup gallery
