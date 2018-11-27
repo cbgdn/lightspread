@@ -65,7 +65,7 @@ let createMainWindow = () => {
 };
 
 let createGalleryWindow = (e, arg) => {
-    // Do nothing if gallery allready started
+    // Do nothing if gallery already started
     if (galleryWindow !== null) {
         return;
     }
@@ -103,6 +103,9 @@ let createGalleryWindow = (e, arg) => {
             galleryWindow.setFullScreen(true);
         }
     });
+
+    // Minimize main window
+    mainWindow.minimize();
 
     galleryWindow.loadURL(arg);
 

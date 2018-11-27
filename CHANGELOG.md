@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Alle Abhängigkeiten wurden aktualisiert
+- Das Hauptfenster wird minimiert, bevor die Gallery im Vollbild startet
 
 ### Fixed
 
