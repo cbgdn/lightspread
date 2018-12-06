@@ -28,7 +28,8 @@ import 'lightgallery/dist/js/lightgallery.js';
 import 'lightgallery/modules/lg-autoplay.js';
 import 'lightgallery/modules/lg-fullscreen.js';
 
-var autoHideControlsTimeout = 2000;
+// autohide controls after 10 sec
+var autoHideControlsTimeout = 10000;
 
 var setupImages = function(data) {
     var galleryElement = document.getElementById('lightgallery');
@@ -52,6 +53,11 @@ var setupImages = function(data) {
 var setupGallery = function() {
     // autostart, if location has the #autostart hash
     var autostart = (window.location.hash == '#autostart');
+
+    // autohide controls in autostart after 2 sec
+    if (autostart) {
+        autoHideControlsTimeout = 2000;
+    }
 
     $("#lightgallery").lightGallery({
         selector: '.galleryitem', // TODO: make it configurable
