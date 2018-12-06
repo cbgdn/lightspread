@@ -1,6 +1,6 @@
 {
   "name": "LightSpread",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0",
   "description": "Present your pictures in an audience friendly way",
   "main": "main.js",
   "scripts": {
