@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Im Autostartmodus verschwinden die Steuererlemente der Gallery weiterhin nach 2 Sekunden, auf dem Smartphone erst nach 10 Sekunden
+- In der Gallery wird der Dateiname nicht mehr unter dem Bild angezeigt
+
 ## [1.0.0-beta.6] - 2018-11-27
 
 ### Changed

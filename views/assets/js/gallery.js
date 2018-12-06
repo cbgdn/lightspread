@@ -69,6 +69,7 @@ var setupGallery = function() {
         enableDrag: ! autostart,
         enableSwipe: ! autostart,
         autoplay: autostart,
+        getCaptionFromTitleOrAlt: false,
         pause: 8000, // TODO: make it configurable
         progressBar: false, // TODO: make it configurable
     });
