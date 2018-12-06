@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2018-12-06
+
 ### Changed
 
 - Im Autostartmodus verschwinden die Steuererlemente der Gallery weiterhin nach 2 Sekunden, auf dem Smartphone erst nach 10 Sekunden
@@ -73,7 +75,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Zeige Bilder mit Autoplay und Fullscreen dank [jQuery lightgallery](http://sachinchoolur.github.io/lightGallery/)
 - Diese CHANGELOG.md Datei
 
-[Unreleased]: https://github.com/Art4/lightspread/compare/1.0.0-beta.6...HEAD
+[Unreleased]: https://github.com/Art4/lightspread/compare/1.0.0...HEAD
+[1.0.0]: https://github.com/Art4/lightspread/compare/1.0.0-beta.6...1.0.0
 [1.0.0-beta.6]: https://github.com/Art4/lightspread/compare/1.0.0-beta.5...1.0.0-beta.6
 [1.0.0-beta.5]: https://github.com/Art4/lightspread/compare/1.0.0-beta.4...1.0.0-beta.5
 [1.0.0-beta.4]: https://github.com/Art4/lightspread/compare/1.0.0-beta.3...1.0.0-beta.4
