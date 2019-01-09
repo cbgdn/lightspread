@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Alle Abhängigkeiten wurden aktualisiert
 
+### Fixed
+
+- In der Gallery wird bei der Bildanzeige keine Scrollbar mehr angezeigt
+
 ## [1.0.0] - 2018-12-06
 
 ### Changed

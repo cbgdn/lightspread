@@ -21,3 +21,9 @@ body {
     left: 0%;
     font-size: 100px;
 }
+
+// Don't show scrollbar in fullscreen mode
+// @see https://github.com/sachinchoolur/lightGallery/issues/155#issuecomment-239656209
+.lg-on {
+    overflow: hidden;
+}
