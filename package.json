@@ -5,13 +5,14 @@
   "main": "main.js",
   "scripts": {
     "build": "electron-builder",
-    "deploy": "webpack -p --config webpack.config.js && electron-builder",
+    "deploy": "webpack -d --config web/webpack.config.js && webpack -p --config webpack.config.js && electron-builder",
     "postinstall": "electron-builder install-app-deps",
-    "publish": "webpack -p --config webpack.config.js && electron-builder -p always",
+    "publish": "webpack -d --config web/webpack.config.js && webpack -p --config webpack.config.js && electron-builder -p always",
     "start": "env ELECTRON_IS_DEV=1 electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack -d --watch --config webpack.config.js",
-    "webpack": "webpack -d --config webpack.config.js"
+    "webpack": "webpack -d --config webpack.config.js",
+    "webpack:web": "webpack -d --config web/webpack.config.js"
   },
   "repository": {
     "type": "git",

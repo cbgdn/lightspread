@@ -3,11 +3,11 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     entry: {
-        main: './views/assets/js/index.js',
+        main: './web/assets/js/index.js',
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, 'views/dist')
+        path: path.resolve(__dirname, 'dist')
     },
     module: {
         rules: [

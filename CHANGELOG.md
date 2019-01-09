@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
+- Bessere Trennung des Codes für App und Gallery-Webseite
 - Alle Abhängigkeiten wurden aktualisiert
 
 ### Fixed

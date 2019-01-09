@@ -84,20 +84,20 @@ let startServer = () => {
     let app = express();
 
     app.get(['/', '/index.html'], function (req, res) {
-        res.sendFile(path.resolve(__dirname, './gallery.html'));
+        res.sendFile(path.resolve(__dirname, '../web/index.html'));
     });
 
     app.get(['/dist/:name'], function (req, res) {
         let name = req.params.name;
 
-        fs.access(path.resolve(__dirname, './dist/' + name), fs.constants.F_OK, (err) => {
+        fs.access(path.resolve(__dirname, '../web/dist/' + name), fs.constants.F_OK, (err) => {
             if (err) {
-                console.log(path.resolve(__dirname, './dist/' + name) + ' nicht gefunden');
+                console.log(path.resolve(__dirname, '../web/dist/' + name) + ' nicht gefunden');
                 res.sendStatus(404);
                 return;
             }
 
-            res.sendFile(path.resolve(__dirname, './dist/'+name));
+            res.sendFile(path.resolve(__dirname, '../web/dist/'+name));
         });
     });
 

@@ -21,7 +21,7 @@ import '@fortawesome/fontawesome-free/scss/regular.scss';
 import '@fortawesome/fontawesome-free/scss/solid.scss';
 import 'lightgallery/dist/css/lightgallery.css';
 import 'lightgallery/dist/css/lg-transitions.css';
-import '../css/gallery.scss';
+import '../css/index.scss';
 
 import $ from 'jquery';
 import 'lightgallery/dist/js/lightgallery.js';
