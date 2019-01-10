@@ -17,7 +17,6 @@
  */
 'use strict';
 
-const electron = require('electron');
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
@@ -82,8 +81,8 @@ let deleteFolderRecursive = function(folder) {
 };
 
 // Constructor
-function ImageStore() {
-    basePath = electron.remote.app.getPath('userData') + path.sep + 'imagestore';
+function ImageStore(path) {
+    basePath = path;
     thumbnailPath = basePath + path.sep + 'thumbnails';
 }
 

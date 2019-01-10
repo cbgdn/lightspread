@@ -1,13 +1,13 @@
 "use strict";
 
 const { dialog } = require('electron').remote;
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, remote } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const packageData = require('../package.json');
 const ImageStore = require('../src/imagestore');
-const store = new ImageStore();
+const store = new ImageStore(remote.app.getPath('userData') + path.sep + 'imagestore');
 
 let selectedPath = null;
 let allowedExtensions = [

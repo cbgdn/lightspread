@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "build": "electron-builder",
-    "deploy": "webpack -d --config web/webpack.config.js && webpack -p --config webpack.config.js && electron-builder",
+    "deploy": "webpack -p --config web/webpack.config.js && webpack -p --config webpack.config.js && electron-builder",
     "postinstall": "electron-builder install-app-deps",
     "publish": "webpack -d --config web/webpack.config.js && webpack -p --config webpack.config.js && electron-builder -p always",
     "start": "env ELECTRON_IS_DEV=1 electron .",
