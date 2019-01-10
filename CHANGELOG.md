@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.1.0] - 2019-01-10
+
 ### Changed
 
 - Bessere Trennung des Codes für App und Gallery-Webseite
@@ -84,7 +86,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Zeige Bilder mit Autoplay und Fullscreen dank [jQuery lightgallery](http://sachinchoolur.github.io/lightGallery/)
 - Diese CHANGELOG.md Datei
 
-[Unreleased]: https://github.com/Art4/lightspread/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/Art4/lightspread/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/Art4/lightspread/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/Art4/lightspread/compare/1.0.0-beta.6...1.0.0
 [1.0.0-beta.6]: https://github.com/Art4/lightspread/compare/1.0.0-beta.5...1.0.0-beta.6
 [1.0.0-beta.5]: https://github.com/Art4/lightspread/compare/1.0.0-beta.4...1.0.0-beta.5
