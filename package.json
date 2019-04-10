@@ -1,15 +1,28 @@
 {
   "name": "LightSpread",
   "version": "1.1.0",
+  "author": "Artur Weigandt",
   "description": "Present your pictures in an audience friendly way",
-  "main": "main.js",
+  "license": "GPL-3.0-or-later",
+  "_main_old": "main.js",
+  "main": "./dist/electron/main.js",
   "scripts": {
-    "build": "electron-builder",
+    "build": "node .electron-vue/build.js && electron-builder",
+    "build:dir": "node .electron-vue/build.js && electron-builder --dir",
+    "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
+    "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
     "deploy": "webpack -p --config web/webpack.config.js && webpack -p --config webpack.config.js && electron-builder",
-    "postinstall": "electron-builder install-app-deps",
+    "dev": "node .electron-vue/dev-runner.js",
+    "lint": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter src test",
+    "lint:fix": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter --fix src test",
+    "pack": "npm run pack:main && npm run pack:renderer",
+    "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
+    "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
+    "postinstall": "electron-builder install-app-deps && npm run lint:fix",
     "publish": "webpack -d --config web/webpack.config.js && webpack -p --config webpack.config.js && electron-builder -p always",
     "start": "env ELECTRON_IS_DEV=1 electron .",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run unit",
+    "unit": "karma start test/unit/karma.conf.js",
     "watch": "webpack -d --watch --config webpack.config.js",
     "webpack": "webpack -d --config webpack.config.js",
     "webpack:web": "webpack -d --config web/webpack.config.js"
@@ -18,36 +31,123 @@
     "type": "git",
     "url": "git+https://github.com/Art4/lightspread.git"
   },
-  "author": "Artur Weigandt",
-  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/Art4/lightspread/issues"
   },
   "homepage": "https://github.com/Art4/lightspread#readme",
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",
+    "ajv": "^6.10.0",
     "autoprefixer": "^9.5.1",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-istanbul": "^5.1.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "babili-webpack-plugin": "^0.1.2",
     "bootstrap": "^4.3.1",
-    "css-loader": "^1.0.1",
+    "cfonts": "^2.4.2",
+    "chai": "^4.2.0",
+    "chalk": "^2.4.2",
+    "copy-webpack-plugin": "^4.6.0",
+    "cross-env": "^5.2.0",
+    "css-loader": "^2.1.1",
+    "del": "^3.0.0",
+    "devtron": "^1.4.0",
     "electron": "^3.1.8",
     "electron-builder": "^20.39.0",
+    "electron-debug": "^1.5.0",
+    "electron-devtools-installer": "^2.2.4",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-html": "^4.0.6",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
     "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "inject-loader": "^4.0.1",
     "jquery": "^3.3.1",
+    "karma": "^4.0.1",
+    "karma-chai": "^0.1.0",
+    "karma-coverage": "^1.1.2",
+    "karma-electron": "^6.0.0",
+    "karma-mocha": "^1.3.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.32",
+    "karma-webpack": "^3.0.5",
     "lightgallery": "^1.6.12",
     "mini-css-extract-plugin": "^0.4.5",
+    "mocha": "^5.2.0",
+    "multispinner": "^0.2.1",
+    "node-loader": "^0.6.0",
     "node-sass": "^4.11.0",
     "postcss-loader": "^3.0.0",
     "precss": "^3.1.2",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
+    "vue-html-loader": "^1.2.4",
+    "vue-loader": "^15.7.0",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.10",
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.3.1",
+    "webpack-hot-middleware": "^2.24.3",
+    "webpack-merge": "^4.2.1"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "express": "^4.16.4",
-    "sharp": "^0.21.3"
+    "sharp": "^0.21.3",
+    "vue": "^2.6.10",
+    "vue-electron": "^1.0.6",
+    "vue-router": "^3.0.3",
+    "vuex": "^3.1.0",
+    "vuex-electron": "^1.0.3"
   },
   "build": {
+    "productName": "LightSpread",
+    "appId": "org.electron.lightspread",
+    "directories": {
+      "output": "build"
+    },
+    "files": [
+      "dist/electron/**/*"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
+    "mac": {
+      "icon": "build/icons/icon.icns"
+    },
+    "win": {
+      "icon": "build/icons/icon.ico"
+    },
+    "linux": {
+      "icon": "build/icons"
+    }
+  },
+  "_build_old": {
     "appId": "org.electron.lightspread",
     "win": {
       "icon": "img/lightspread-256.png"

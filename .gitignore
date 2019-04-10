@@ -1,4 +1,13 @@
-/dist
-/node_modules
-/views/dist
-/web/dist
+.DS_Store
+!.gitkeep
+dist/electron/*
+dist/web/*
+build/*
+!build/icons
+coverage
+node_modules/
+npm-debug.log
+npm-debug.log.*
+thumbs.db
+views/dist
+web/dist

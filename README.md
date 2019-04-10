@@ -23,5 +23,28 @@ For best experience: Go fullscreen and start autoplay
 
 **Note**: Users must be in the same WLAN network as the presenter PC and the PC must have open port 3000.
 
+## Development
+
+### Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:9080
+npm run dev
+
+# build electron application for production
+npm run build
+
+# run unit tests
+npm test
+
+
+# lint all JS/Vue component files in `src/`
+npm run lint
+
+```
+
 ![](img/LightSpread-gallery-mobile.png)
 ![](img/LightSpread-lightgallery-mobile.png)
