@@ -104,7 +104,7 @@ ImageStore.prototype.reset = function() {
     }
 
     storeData = new Map();
-}
+};
 
 ImageStore.prototype.add = function(id, imagePath, size) {
     return new Promise(function (resolve, reject) {

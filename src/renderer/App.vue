@@ -6,8 +6,8 @@
 
 <script>
   export default {
-    name: 'vue-test'
-  }
+      name: 'LightSpread'
+  };
 </script>
 
 <style>
