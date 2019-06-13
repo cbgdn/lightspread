@@ -1,5 +1,6 @@
 .DS_Store
 !.gitkeep
+dist/.icon-ico/*
 dist/electron/*
 dist/web/*
 build/*
