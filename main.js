@@ -23,13 +23,14 @@ const isDevEnv = ('ELECTRON_IS_DEV' in process.env);
 let mainWindow;
 let galleryWindow = null;
 
-
-
 let createMainWindow = () => {
     // Create the browser window.
     mainWindow = new BrowserWindow({
         width: 700,
         height: 400,
+        webPreferences: {
+            nodeIntegration: true
+        },
     });
 
     // and load the index.html of the app.
@@ -80,6 +81,9 @@ let createGalleryWindow = (e, arg) => {
         autoHideMenuBar: true,
         title: 'LightSpread Gallery',
         icon: nativeImage.createFromPath('./img/lightspread-256.png'),
+        webPreferences: {
+            nodeIntegration: false
+        },
     });
 
     // galleryWindow.webContents.openDevTools({mode: 'bottom'});

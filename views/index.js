@@ -243,12 +243,11 @@ let handleSelectedFolder = (filePaths) => {
 
 // If folder selector is clicked
 document.querySelector('#folder-selector').addEventListener('click', (e) => {
-    dialog.showOpenDialog(
-        {
-            properties: ['openDirectory']
-        },
-        handleSelectedFolder
-    );
+    dialog.showOpenDialog({
+        properties: ['openDirectory']
+    }).then((result) => {
+        handleSelectedFolder(result.filePaths);
+    });
 });
 
 // If server switch is clicked
