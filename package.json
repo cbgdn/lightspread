@@ -25,26 +25,26 @@
   },
   "homepage": "https://github.com/Art4/lightspread#readme",
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.8.1",
-    "autoprefixer": "^9.5.1",
-    "bootstrap": "^4.3.1",
+    "@fortawesome/fontawesome-free": "^5.11.2",
+    "autoprefixer": "^9.7.2",
+    "bootstrap": "^4.4.1",
     "css-loader": "^1.0.1",
-    "electron": "^3.1.8",
-    "electron-builder": "^20.39.0",
+    "electron": "^3.1.13",
+    "electron-builder": "^20.44.4",
     "file-loader": "^2.0.0",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.1",
     "lightgallery": "^1.6.12",
     "mini-css-extract-plugin": "^0.4.5",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.0",
     "postcss-loader": "^3.0.0",
     "precss": "^3.1.2",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "^7.3.1",
     "style-loader": "^0.23.1",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   },
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "sharp": "^0.21.3"
   },
   "build": {
