@@ -81,8 +81,8 @@ let deleteFolderRecursive = function(folder) {
 };
 
 // Constructor
-function ImageStore(path) {
-    basePath = path;
+function ImageStore(base_path) {
+    basePath = base_path;
     thumbnailPath = basePath + path.sep + 'thumbnails';
 }
 

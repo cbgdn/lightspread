@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Update Electron von 3.1.13 auf 7.1.2
 - Alle Abhängigkeiten wurden aktualisiert
 
+### Fixed
+
+- Vorschaubilder werden im richtigen Unterordner angelegt
+
 ## [1.1.0] - 2019-01-10
 
 ### Changed
