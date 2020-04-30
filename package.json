@@ -32,7 +32,7 @@
     "electron": "^7.1.2",
     "electron-builder": "^22.2.0",
     "file-loader": "^2.0.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lightgallery": "^1.6.12",
     "mini-css-extract-plugin": "^0.4.5",
     "node-sass": "^4.13.0",
