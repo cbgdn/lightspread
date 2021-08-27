@@ -15,18 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import 'bootstrap/scss/bootstrap.scss';
-import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
-import '@fortawesome/fontawesome-free/scss/regular.scss';
-import '@fortawesome/fontawesome-free/scss/solid.scss';
-import 'lightgallery/dist/css/lightgallery.css';
-import 'lightgallery/dist/css/lg-transitions.css';
-import '../css/index.scss';
+
+import '../scss/style.scss';
 
 import $ from 'jquery';
-import 'lightgallery/dist/js/lightgallery.js';
-import 'lightgallery/modules/lg-autoplay.js';
-import 'lightgallery/modules/lg-fullscreen.js';
+import lightGallery from 'lightgallery';
+import lgAutoplay from 'lightgallery/plugins/autoplay';
+import lgFullscreen from 'lightgallery/plugins/fullscreen';
 
 // autohide controls after 10 sec
 var autoHideControlsTimeout = 10000;
@@ -40,9 +35,9 @@ var setupImages = function(data) {
         var value = data[index];
 
         var element = template
-            .replace('{image}', value.path)
-            .replace('{thumb}', value.thumbnail)
-            .replace('{title}', value.name);
+            .replaceAll('{image}', value.path)
+            .replaceAll('{thumb}', value.thumbnail)
+            .replaceAll('{title}', value.name);
 
         galleryElement.innerHTML = galleryElement.innerHTML + element;
     }
@@ -59,7 +54,8 @@ var setupGallery = function() {
         autoHideControlsTimeout = 2000;
     }
 
-    $("#lightgallery").lightGallery({
+    lightGallery(document.getElementById('lightgallery'), {
+        plugins: [lgAutoplay, lgFullscreen],
         selector: '.galleryitem', // TODO: make it configurable
         mode: 'lg-soft-zoom',
         height: '100%',
