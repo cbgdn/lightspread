@@ -29,7 +29,7 @@
     "autoprefixer": "^9.8.6",
     "bootstrap": "^4.6.0",
     "css-loader": "^6.2.0",
-    "electron": "^7.3.3",
+    "electron": "^9.4.0",
     "electron-builder": "^22.11.7",
     "file-loader": "^6.2.0",
     "jquery": "^3.6.0",
