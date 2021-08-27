@@ -90,7 +90,10 @@ let createGalleryWindow = (e, arg) => {
         },
     });
 
-    // galleryWindow.webContents.openDevTools({mode: 'bottom'});
+    // Open the DevTools if in dev environment
+    if (isDevEnv) {
+        galleryWindow.webContents.openDevTools({mode: 'detach'});
+    }
 
     galleryWindow.once('ready-to-show', () => {
         galleryWindow.show();

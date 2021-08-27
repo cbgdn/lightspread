@@ -24,6 +24,14 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import 'lightgallery/css/lightgallery.css';
 @import 'lightgallery/css/lg-transitions.css';
 
+html.html__cursor--none {
+    cursor: 'none';
+}
+
+html.html__cursor--default {
+    cursor: 'default';
+}
+
 body {
     background-color: #333333;
 }

@@ -10,9 +10,11 @@
     "publish": "webpack --mode=production --config web/webpack.config.js && webpack --mode=production --config webpack.config.js && electron-builder -p always",
     "start": "env ELECTRON_IS_DEV=1 electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --mode=development --watch --config webpack.config.js",
+    "watch": "npm-run-all -p webpack-watch webpack:web-watch",
     "webpack": "webpack --mode=development --config webpack.config.js",
-    "webpack:web": "webpack --mode=development --config web/webpack.config.js"
+    "webpack-watch": "webpack --mode=development --config webpack.config.js --watch",
+    "webpack:web": "webpack --mode=development --config web/webpack.config.js",
+    "webpack:web-watch": "webpack --mode=development --config web/webpack.config.js --watch"
   },
   "repository": {
     "type": "git",
@@ -27,12 +29,11 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
     "autoprefixer": "^10.3.3",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^5.1.0",
     "css-loader": "^6.2.0",
     "electron": "^13.2.2",
     "electron-builder": "^22.11.7",
     "file-loader": "^6.2.0",
-    "jquery": "^3.6.0",
     "lightgallery": "^2.2.0",
     "mini-css-extract-plugin": "^2.2.0",
     "node-sass": "^6.0.1",

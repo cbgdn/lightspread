@@ -18,7 +18,6 @@
 
 import '../scss/style.scss';
 
-import $ from 'jquery';
 import lightGallery from 'lightgallery';
 import lgAutoplay from 'lightgallery/plugins/autoplay';
 import lgFullscreen from 'lightgallery/plugins/fullscreen';
@@ -27,25 +26,28 @@ import lgFullscreen from 'lightgallery/plugins/fullscreen';
 var autoHideControlsTimeout = 10000;
 
 var setupImages = function(data) {
-    var galleryElement = document.getElementById('lightgallery');
+    return new Promise(resolve => {
+        let galleryContent = '';
+        let template = '<div class="col-xl-1 col-lg-2 col-md-3 col-6"><a href="{image}" title="{title}" class="galleryitem d-block mb-4 h-100" data-src="{image}"><img class="img-fluid img-thumbnail" src="{thumb}" alt=""></a></div>';
 
-    var template = '<div class="col-xl-1 col-lg-2 col-md-3 col-6"><a href="{image}" title="{title}" class="galleryitem d-block mb-4 h-100" data-src="{image}"><img class="img-fluid img-thumbnail" src="{thumb}" alt=""></a></div>';
+        data.forEach(item => {
+            let element = template
+                .replaceAll('{image}', item.path)
+                .replaceAll('{thumb}', item.thumbnail)
+                .replaceAll('{title}', item.name);
 
-    for (var index in data) {
-        var value = data[index];
+            galleryContent += element;
+        });
 
-        var element = template
-            .replaceAll('{image}', value.path)
-            .replaceAll('{thumb}', value.thumbnail)
-            .replaceAll('{title}', value.name);
+        document.getElementById('lightgallery').innerHTML = galleryContent;
 
-        galleryElement.innerHTML = galleryElement.innerHTML + element;
-    }
-
-    return true;
+        resolve();
+    });
 }
 
-var setupGallery = function() {
+var setupGallery = async function(data) {
+    await setupImages(data);
+
     // autostart, if location has the #autostart hash
     var autostart = (window.location.hash == '#autostart');
 
@@ -55,6 +57,7 @@ var setupGallery = function() {
     }
 
     lightGallery(document.getElementById('lightgallery'), {
+        licenseKey: 'GPL-3.0-or-later',
         plugins: [lgAutoplay, lgFullscreen],
         selector: '.galleryitem', // TODO: make it configurable
         mode: 'lg-soft-zoom',
@@ -76,37 +79,41 @@ var setupGallery = function() {
 
     // Start with first slide
     if (autostart) {
-        $(".galleryitem").first().trigger('click');
+        let galleryitem = document.querySelector(".galleryitem");
+
+        if (galleryitem) {
+            galleryitem.click();
+        }
     }
 };
 
 // Autohide cursor after some seconds
 // Thanks to https://stackoverflow.com/a/31798987
-$(function() {
+var autohideCursor = function() {
     var timer;
     var fadeInBuffer = false;
 
     var resetTimer = function() {
+        let htmlElement = document.querySelector("html");
+
         if (!fadeInBuffer) {
             if (timer) {
                 clearTimeout(timer);
                 timer = 0;
             }
 
-            $('html').css({
-                cursor: ''
-            });
+            htmlElement.classList.remove('html__cursor--none');
+            htmlElement.classList.remove('html__cursor--default');
         } else {
-            $('html').css({
-                cursor: 'default'
-            });
+            htmlElement.classList.remove('html__cursor--none');
+            htmlElement.classList.add('html__cursor--default');
+
             fadeInBuffer = false;
         }
 
         timer = setTimeout(function() {
-            $('html').css({
-                cursor: 'none'
-            });
+            htmlElement.classList.remove('html__cursor--default');
+            htmlElement.classList.add('html__cursor--none');
 
             fadeInBuffer = true;
         }, autoHideControlsTimeout);
@@ -116,21 +123,29 @@ $(function() {
     resetTimer();
 
     // Reset timer on mousemove
-    $(document).mousemove(resetTimer);
-});
-
-// Load image list and setup gallery
-$(document).ready(function() {
-    $.ajax('/images', {
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert('Bilder konnten nicht geladen werden.');
-            console.log(textStatus);
-            console.error(errorThrown);
-        },
-        success: function(data, textStatus, jqXHR) {
-            if (setupImages(data.data)) {
-                setupGallery();
-            }
-        }
+    document.addEventListener('mousemove', event => {
+        resetTimer();
     });
+};
+
+document.addEventListener('readystatechange', event => {
+    if (event.target.readyState === 'complete') {
+        autohideCursor();
+        // Load image list and setup gallery
+        let requestImages = new Request('/images');
+
+        fetch(requestImages)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                setupGallery(data.data);
+            })
+            .catch(error => {
+                alert('Bilder konnten nicht geladen werden.');
+                console.debug('Fehler gefangen');
+                console.error(error);
+            })
+        ;
+    }
 });

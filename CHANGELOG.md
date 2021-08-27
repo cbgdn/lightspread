@@ -6,16 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased](https://github.com/Art4/lightspread/compare/1.2.0...HEAD)
 
-## Changed
+### Changed
 
 - Update Electron von 7.3.3 auf 13.2.2
+- Update Bootstrap von 4.6.0 auf 5.1.0
 - Update lightgallery von 1.10.0 auf 2.2.0
 - Update webpack von 4.41.2 auf 5.51.1
 - Alle Abhängigkeiten wurden aktualisiert
 
+### Removed
+
+- jQuery wird nicht mehr benötigt und wurde entfernt
+
 ## [1.2.0 - 2019-11-29](https://github.com/Art4/lightspread/compare/1.1.0...1.2.0)
 
-## Changed
+### Changed
 
 - Update Electron von 3.1.13 auf 7.1.2
 - Alle Abhängigkeiten wurden aktualisiert
