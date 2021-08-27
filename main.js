@@ -29,6 +29,8 @@ let createMainWindow = () => {
         width: 700,
         height: 400,
         webPreferences: {
+            contextIsolation: false,
+            enableRemoteModule: true,
             nodeIntegration: true
         },
     });
@@ -82,6 +84,8 @@ let createGalleryWindow = (e, arg) => {
         title: 'LightSpread Gallery',
         icon: nativeImage.createFromPath('./img/lightspread-256.png'),
         webPreferences: {
+            contextIsolation: false,
+            enableRemoteModule: false,
             nodeIntegration: false
         },
     });

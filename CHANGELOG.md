@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Changed
 
+- Update Electron von 7.3.3 auf 13.2.2
 - Update lightgallery von 1.10.0 auf 2.2.0
 - Update webpack von 4.41.2 auf 5.51.1
 - Alle Abhängigkeiten wurden aktualisiert
