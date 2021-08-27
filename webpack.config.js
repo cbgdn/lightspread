@@ -28,11 +28,13 @@ module.exports = {
                     {
                         loader: 'postcss-loader', // Run post css actions
                         options: {
-                            plugins: function () { // post css plugins, can be exported to postcss.config.js
-                                return [
-                                    require('precss'),
-                                    require('autoprefixer')
-                                ];
+                            postcssOptions:{
+                                plugins: function () { // post css plugins, can be exported to postcss.config.js
+                                    return [
+                                        require('precss'),
+                                        require('autoprefixer')
+                                    ];
+                                }
                             }
                         }
                     },
@@ -42,22 +44,22 @@ module.exports = {
                 ]
             }, {
                 test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader?limit=10000&mimetype=application/font-woff'
+                type: 'asset/inline',
             }, {
                 test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader?limit=10000&mimetype=application/octet-stream'
+                type: 'asset/inline',
             }, {
                 test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader'
+                type: 'asset/inline',
             }, {
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader?limit=10000&mimetype=image/svg+xml'
+                type: 'asset/inline',
             }, {
                 test: /\.png(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader?limit=10000&mimetype=image/png'
+                type: 'asset/inline',
             }, {
                 test: /\.gif(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader?limit=10000&mimetype=image/gif'
+                type: 'asset/inline',
             },
         ]
     },

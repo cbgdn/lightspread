@@ -5,14 +5,14 @@
   "main": "main.js",
   "scripts": {
     "build": "electron-builder",
-    "deploy": "webpack -p --config web/webpack.config.js && webpack -p --config webpack.config.js && electron-builder",
+    "deploy": "webpack --mode=production --config web/webpack.config.js && webpack --mode=production --config webpack.config.js && electron-builder",
     "postinstall": "electron-builder install-app-deps",
-    "publish": "webpack -d --config web/webpack.config.js && webpack -p --config webpack.config.js && electron-builder -p always",
+    "publish": "webpack --mode=production --config web/webpack.config.js && webpack --mode=production --config webpack.config.js && electron-builder -p always",
     "start": "env ELECTRON_IS_DEV=1 electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack -d --watch --config webpack.config.js",
-    "webpack": "webpack -d --config webpack.config.js",
-    "webpack:web": "webpack -d --config web/webpack.config.js"
+    "watch": "webpack --mode=development --watch --config webpack.config.js",
+    "webpack": "webpack --mode=development --config webpack.config.js",
+    "webpack:web": "webpack --mode=development --config web/webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -25,27 +25,27 @@
   },
   "homepage": "https://github.com/Art4/lightspread#readme",
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.11.2",
-    "autoprefixer": "^9.7.2",
-    "bootstrap": "^4.4.1",
-    "css-loader": "^1.0.1",
-    "electron": "^7.1.2",
-    "electron-builder": "^22.2.0",
-    "file-loader": "^2.0.0",
-    "jquery": "^3.4.1",
-    "lightgallery": "^1.6.12",
-    "mini-css-extract-plugin": "^0.4.5",
-    "node-sass": "^4.13.0",
-    "postcss-loader": "^3.0.0",
-    "precss": "^3.1.2",
-    "sass-loader": "^7.3.1",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "autoprefixer": "^9.8.6",
+    "bootstrap": "^4.6.0",
+    "css-loader": "^6.2.0",
+    "electron": "^7.3.3",
+    "electron-builder": "^22.11.7",
+    "file-loader": "^6.2.0",
+    "jquery": "^3.6.0",
+    "lightgallery": "^1.10.0",
+    "mini-css-extract-plugin": "^2.2.0",
+    "node-sass": "^6.0.1",
+    "postcss-loader": "^6.1.1",
+    "precss": "^4.0.0",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "sharp": "^0.23.3"
+    "sharp": "^0.29.0"
   },
   "build": {
     "appId": "org.electron.lightspread",

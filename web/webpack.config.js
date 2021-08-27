@@ -28,11 +28,13 @@ module.exports = {
                     {
                         loader: 'postcss-loader', // Run post css actions
                         options: {
-                            plugins: function () { // post css plugins, can be exported to postcss.config.js
-                                return [
-                                    require('precss'),
-                                    require('autoprefixer')
-                                ];
+                            postcssOptions: {
+                                plugins: function () { // post css plugins, can be exported to postcss.config.js
+                                    return [
+                                        require('precss'),
+                                        require('autoprefixer')
+                                    ];
+                                }
                             }
                         }
                     },
@@ -42,22 +44,42 @@ module.exports = {
                 ]
             }, {
                 test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader?limit=10000&mimetype=application/font-woff'
+                loader: 'file-loader',
+                options: {
+                    limit: 10000,
+                    mimetype: 'application/font-woff'
+                }
             }, {
                 test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader?limit=10000&mimetype=application/octet-stream'
+                loader: 'file-loader',
+                options: {
+                    limit: 10000,
+                    mimetype: 'application/octet-stream'
+                }
             }, {
                 test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'file-loader'
             }, {
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader?limit=10000&mimetype=image/svg+xml'
+                loader: 'file-loader',
+                options: {
+                    limit: 10000,
+                    mimetype: 'image/svg+xml'
+                }
             }, {
                 test: /\.png(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader?limit=10000&mimetype=image/png'
+                loader: 'file-loader',
+                options: {
+                    limit: 10000,
+                    mimetype: 'image/png'
+                }
             }, {
                 test: /\.gif(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader?limit=10000&mimetype=image/gif'
+                loader: 'file-loader',
+                options: {
+                    limit: 10000,
+                    mimetype: 'image/gif'
+                }
             },
         ]
     },
